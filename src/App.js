@@ -55,14 +55,23 @@ function App (){
     updateCelebs(clonedCelebs)
   }
 
- const handlerAddRandom =()=>{
+  const handlerAddRandom =()=>{
     let randomIndex = Math.floor(Math.random()*data.length)
     let elem = data[randomIndex]
   
 
     updateCelebs( [elem, ...celebs])
-}
+  }
   
+  const handlerDelete = (i) => {
+    console.log(i)
+    let filteredCelebs = celebs.filter((e, index)=>{
+      return celebs.indexOf(e) !== i
+    })
+    updateCelebs( filteredCelebs)
+  }
+  
+
 
   return (
       <div className="App">
@@ -72,13 +81,14 @@ function App (){
         {
           celebs.map((e,i)=>{
             return <ul key={i}>
-                      <li><img src={e.pictureUrl} width="10%"/>,{e.name} ,{e.popularity.toFixed(2)}</li>
+                      <li><img src={e.pictureUrl} width="8%"/> {e.name} - {e.popularity.toFixed(2)} - <button onClick={() =>handlerDelete(i)}>Delete</button></li>
                     </ul>
           })
         }
     </div>
     )
-  };
+}
+      
 
 
 export default App;
