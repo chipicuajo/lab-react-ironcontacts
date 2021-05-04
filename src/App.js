@@ -13,7 +13,47 @@ data.map((e)=>{
 })
 
 function App (){
+
   const [celebs, updateCelebs] = useState(actors)
+
+
+
+
+  const handleSortName = () => {
+    
+    let clonedCelebs = JSON.parse(JSON.stringify(celebs))
+
+    clonedCelebs.sort((a, b) => {
+        if (a.name > b.name) {
+            return 1
+        }
+        else if(a.name < b.name) {
+            return -1
+        }
+        else {
+            return 0
+        }
+    })
+    updateCelebs(clonedCelebs)
+  }
+
+  const handleSortPop = () => {
+    
+    let clonedCelebs = JSON.parse(JSON.stringify(celebs))
+
+    clonedCelebs.sort((a, b) => {
+        if (a.popularity > b.popularity) {
+            return 1
+        }
+        else if(a.popularity < b.popularity) {
+            return -1
+        }
+        else {
+            return 0
+        }
+    })
+    updateCelebs(clonedCelebs)
+  }
 
  const handlerAddRandom =()=>{
     let randomIndex = Math.floor(Math.random()*data.length)
@@ -26,7 +66,9 @@ function App (){
 
   return (
       <div className="App">
-        <button onClick={handlerAddRandom}>Add Random Contact</button>
+        <button onClick={handlerAddRandom}>Add Random Celeb</button>
+        <button onClick={handleSortName}>Sort Celeb Name</button>
+        <button onClick={handleSortPop}>Sort Celeb Popularity</button>
         {
           celebs.map((e,i)=>{
             return <ul key={i}>
