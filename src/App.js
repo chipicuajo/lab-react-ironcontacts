@@ -1,7 +1,8 @@
 
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import data from './contacts.json'
+
 
 
 let actors = []
@@ -10,30 +11,22 @@ data.map((e)=>{
     actors.push(e)
   }
 })
-class App extends React.Component{
 
-  state = {
-    celebs: actors
-  }
+function App (){
+  const [celebs, updateCelebs] = useState(actors)
 
-
-
-  handlerAddRandom =()=>{
+ const handlerAddRandom =()=>{
     let randomIndex = Math.floor(Math.random()*data.length)
     let elem = data[randomIndex]
   
 
-    this.setState({
-      celebs: [elem, ...this.state.celebs]
-  })
+    updateCelebs( [elem, ...celebs])
 }
   
 
-  render(){
-    const {celebs} = this.state
-    return (
+  return (
       <div className="App">
-        <button onClick={this.handlerAddRandom}>Add Random Contact</button>
+        <button onClick={handlerAddRandom}>Add Random Contact</button>
         {
           celebs.map((e,i)=>{
             return <ul key={i}>
@@ -44,6 +37,6 @@ class App extends React.Component{
     </div>
     )
   };
-}
+
 
 export default App;
